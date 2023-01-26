@@ -20,15 +20,28 @@ headerTitle.style.borderBottom = 'solid 3px #000';
 
 
 
-var items = document.getElementsByClassName('list-group-item');
-console.log(items);
-items[1].textContent ='Hello 2';
-items[1].style.fontWeight = 'bold';
-items[1].style.backgroundColor = 'yellow';
-items[2].style.backgroundColor = 'green';
+//var items = document.getElementsByClassName('list-group-item');
+//console.log(items);
+//items[1].textContent ='Hello 2';
+//items[1].style.fontWeight = 'bold';
+//items[1].style.backgroundColor = 'yellow';
+//items[2].style.backgroundColor = 'green';
 
-for(var i=0; i<items.length; i++){
-  items[i].style.fontWeight ='bold' ;
+//for(var i=0; i<items.length; i++){
+  //items[i].style.fontWeight ='bold' ;
+//}
+
+var li = document.getElementsByTagName('li');
+console.log(li);
+li[1].textContent ='Hello 2';
+li[1].style.fontWeight = 'bold';
+li[1].style.backgroundColor = 'yellow';
+li[2].style.backgroundColor = 'green';
+li[4].style.backgroundColor = 'skyblue';
+
+for(var i=0; i<li; i++){
+  li[i].style.fontWeight ='bold' ;
 }
+
 
 
