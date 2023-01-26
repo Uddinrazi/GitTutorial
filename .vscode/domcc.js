@@ -10,11 +10,11 @@
 //console.log(document.forms[0]);
 //console.log(document.links);
 
-var headerTitle = document.getElementById('header-title');
+//var headerTitle = document.getElementById('header-title');
 //console.log(headerTitle);
 //console.log(headerTitle.innerText);
 //headerTitle.innerHTML = '<h3>Hello</h3>';
-headerTitle.style.borderBottom = 'solid 3px #000';
+//headerTitle.style.borderBottom = 'solid 3px #000';
 
 //Get Element By Class Name
 
@@ -31,17 +31,33 @@ headerTitle.style.borderBottom = 'solid 3px #000';
   //items[i].style.fontWeight ='bold' ;
 //}
 
-var li = document.getElementsByTagName('li');
-console.log(li);
-li[1].textContent ='Hello 2';
-li[1].style.fontWeight = 'bold';
-li[1].style.backgroundColor = 'yellow';
-li[2].style.backgroundColor = 'green';
-li[4].style.backgroundColor = 'skyblue';
+//var li = document.getElementsByTagName('li');
+//console.log(li);
+//li[1].textContent ='Hello 2';
+//li[1].style.fontWeight = 'bold';
+//li[1].style.backgroundColor = 'yellow';
+//li[2].style.backgroundColor = 'green';
+//li[4].style.backgroundColor = 'skyblue';
 
-for(var i=0; i<li; i++){
-  li[i].style.fontWeight ='bold' ;
+//for(var i=0; i<li; i++){
+  //li[i].style.fontWeight ='bold' ;
+//}
+
+
+//using query selector
+
+var secondItem = document.querySelector('.list-group-item:nth-child(2)');
+secondItem.style.backgroundColor ='lightgreen';
+
+var thirdItem = document.querySelector('.list-group-item:nth-child(3)');
+thirdItem.style.color ='white';
+
+
+
+var odd = document.querySelectorAll('li:nth-child(odd)');
+var even = document.querySelectorAll('li:nth-child(even)');
+
+for(i=0; i< odd.length;i++){
+  odd[i].style.backgroundColor = 'green';
+  even[i].style.color = 'darkgreen'
 }
-
-
-
