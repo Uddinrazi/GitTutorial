@@ -29,7 +29,7 @@
       <input class="btn" type="submit" value="Submit">
     </form>
 
-    <ul id="users"></ul>
+    <ul id="userList"></ul>
 
     <!-- <ul class="items">
         <li class="item">Item 1</li>
@@ -38,7 +38,7 @@
       </ul> -->
   </section>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
   <script>
     function saveToLocalStorage(event) {
       event.preventDefault();
@@ -53,10 +53,10 @@
 
 
       //let obj_serialized = JSON.stringify(obj);
-     axios.post("https://crudcrud.com/api/8b97104faa5845148b0a90a77695fb8f/freshdata", obj)
+      axios.post("https://crudcrud.com/api/68f7d39ce4f543d2a34bbca1f8b48b2e/data", obj)
         .then((response) => {
           showUserOnScreen(response.data)
-          console.log(response)
+          
         }).catch((err) => {
           console.log(err)
         })
@@ -66,72 +66,70 @@
 
     }
 
- 
+
 
     window.addEventListener("DOMContentLoaded", () => {
-      axios.delete("https://crudcrud.com/api/8b97104faa5845148b0a90a77695fb8f/freshdata")
-          .then((response) => {
-            
-            showUserOnScreen(response.data)
-             
-            console.log(response)
-          }).catch((err) => {
-            console.log(err)
-          }) 
-      axios.get("https://crudcrud.com/api/8b97104faa5845148b0a90a77695fb8f/freshdata")
-          .then((response) => {
-            for(let i=0;i<response.data.length;i++){
+    
+      axios.get("https://crudcrud.com/api/68f7d39ce4f543d2a34bbca1f8b48b2e/data")
+        .then((response) => {
+          //console.log(response)
+          for (let i = 0; i < response.data.length; i++) {
             showUserOnScreen(response.data[i])
-            }
-            console.log(response)
-          }).catch((err) => {
-            console.log(err)
-          }) 
-      /*const localStorageObj = localStorage;
-      const localStoragekeys = Object.keys(localStorageObj)
+          }
+          
+        }).catch((err) => {
+          console.log(err)
+        })
+     
 
-      for (var i = 0; i < localStoragekeys.length; i++) {
-        const key = localStoragekeys[i];
-        const userDetailsString = localStorageObj[key]
-        const userDetailsobj = JSON.parse(userDetailsString);
-        showUserOnScreen(userDetailsobj)
-      }*/
-    
     })
-    
-      function showUserOnScreen(obj) {
-        var parentElemnt = document.getElementById('users');
-        var childEle = document.createElement('li');
-        console.log(childEle);
-        childEle.textContent = obj.name1 + ' - ' + obj.email1;
-        parentElemnt.appendChild(childEle);
-        //parentElemnt.innerHTML = parentElemnt + '<li>  ${obj.name1} - ${obj.email1} </li>';
+
+    function showUserOnScreen(user) {
+    /* document.getElementById('email').value = '';
+      document.getElementById('name').value = '';
+
+      if (localStorage.getItem(user.email1) !== null) {
+        removeUserFromScreen(user.email1)  
+      }*/
       
-    
-        var deletebtn = document.createElement('input');
-        deletebtn.type = 'button';
-        deletebtn.id = 'btn';
-        deletebtn.value = 'Delete';
+      const parentElemnt = document.getElementById('userList');
+      const childHTML = `<li id=${user._id}> ${user.name1} - ${user.email1}
+        <button onclick = deleteUsers('${user._id}') > Delete User</button>
+        <button onclick = editUserDetails('${user._id}','${user.email1}','${user.name1}')> Edit </button>
+          </li> `
+      
+        parentElemnt.innerHTML = parentElemnt.innerHTML + childHTML; 
 
-        deletebtn.onclick = () => {
-          localStorage.removeItem(obj.email1);
-          parentElemnt.removeChild(childEle);
+        //function edit user 
         }
-        childEle.appendChild(deletebtn);
 
+        function editUserDetails(emailid,name){
+          document.getElementById('email').value = emailid;
+          document.getElementById('name').value = name;
 
-        var editbtn = document.createElement('input');
-        editbtn.type = 'button';
-        editbtn.value = 'Edit';
-
-        editbtn.onclick = () => {
-          localStorage.removeItem(obj.email1);
-          document.getElementById('name').value = obj.name1;
-          document.getElementById('email').value = obj.email1;
+          deleteUsers(emailid);
         }
-        childEle.appendChild(editbtn);
+
+        function deleteUsers(userId){
+          axios.delete(`https://crudcrud.com/api/68f7d39ce4f543d2a34bbca1f8b48b2e/data/${userId}`)
+          .then((response) => {
+            removeUserFromScreen(userId)
+          })
+          .catch((err) =>{
+            console.log(err)
+          })
+        }
+
+      function removeUserFromScreen(userId){
+        const parentNode = document.getElementById('userList');
+        const childNodeDeleted = document.getElementById(userId);
+        if(childNodeDeleted){
+          parentNode.removeChild(childNodeDeleted)
+        }
       }
-    
+      
+
 </script>
 </body>
+
 </html>
